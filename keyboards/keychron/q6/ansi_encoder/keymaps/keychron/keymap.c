@@ -17,8 +17,6 @@
 #include QMK_KEYBOARD_H
 #include "keychron_common.h"
 
-#include "custom_header.h"
-
 // clang-format off
 
 enum layers{
@@ -74,19 +72,9 @@ void housekeeping_task_user(void) {
     housekeeping_task_keychron();
 }
 
-bool g_custom_lock_indicator_flag = true;
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if(!process_record_keychron(keycode, record)) {
         return false;
-    }
-
-    switch(keycode) {
-        case KC_LKIN:
-            if (record->event.pressed) {
-                g_custom_lock_indicator_flag = !g_custom_lock_indicator_flag;
-            }
-            return false;
     }
 
     return true;

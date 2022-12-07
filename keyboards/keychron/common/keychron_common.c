@@ -20,6 +20,8 @@
 bool is_siri_active = false;
 uint32_t siri_timer = 0;
 
+bool is_lock_indicator_active = true;
+
 key_combination_t key_comb_list[4] = {
     {2, {KC_LWIN, KC_TAB}},
     {2, {KC_LWIN, KC_E}},
@@ -89,6 +91,11 @@ bool process_record_keychron(uint16_t keycode, keyrecord_t *record) {
                 for (uint8_t i = 0; i < key_comb_list[keycode - KC_TASK].len; i++) {
                     unregister_code(key_comb_list[keycode - KC_TASK].keycode[i]);
                 }
+            }
+            return false;  // Skip all further processing of this key
+        case KC_LKIN:
+            if (record->event.pressed) {
+                is_lock_indicator_active = !is_lock_indicator_active;
             }
             return false;  // Skip all further processing of this key
         default:
