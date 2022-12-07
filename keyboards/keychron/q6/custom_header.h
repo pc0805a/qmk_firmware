@@ -1,0 +1,1 @@
+extern bool g_custom_lock_indicator_flag;
